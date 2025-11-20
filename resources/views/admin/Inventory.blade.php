@@ -3,6 +3,8 @@
 @section('title', 'Inventory')
 
 @section('content')
+
+<div x-data="{ showAddModal: false }">
 <div class="px-10 py-8">
 
     {{-- Page Header --}}
@@ -75,10 +77,27 @@
         </div>
     </div>
 
+    
+
+
     {{-- Ingredients Table --}}
     <div class="border border-pink-200 mt-8 rounded-xl p-6">
 
-        <h2 class="text-lg font-semibold text-gray-800">Ingredients</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-gray-800">Ingredients</h2>
+
+            <button 
+                @click="showAddModal = true" 
+                class="flex items-center space-x-2 px-4 py-2 bg-pink-500 text-white rounded-lg shadow"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span>Add Ingredient</span>
+            </button>
+        </div>
+        
+
         <p class="text-gray-500 text-sm mb-4">0 ingredient found</p>
 
         <div class="overflow-x-auto">
@@ -112,4 +131,113 @@
     </div>
 
 </div>
+
+<!-- Add Ingredient Modal -->
+<div 
+    x-cloak 
+    x-show="showAddModal" 
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
+>
+    <div 
+        @click.away="showAddModal = false"
+        class="bg-white w-full max-w-lg rounded-2xl shadow-lg p-6"
+    >
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800">Add Ingredient</h2>
+                <p class="text-gray-500 text-sm">Add a new ingredient to the inventory</p>
+            </div>
+
+            <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+        </div>
+
+        <!-- Form -->
+        <form method="POST" action="{{ route('inventory.store') }}">
+            @csrf
+
+            <!-- Name -->
+            <div class="mb-4 flex">
+                <label class="block text-sm font-medium mb-1">Name</label>
+                <input 
+                    type="text" 
+                    name="name"
+                    class="w-full px-4 py-2 bg-gray-100 rounded-lg"
+                    required
+                >
+            </div>
+
+            <!-- Unit -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">Unit</label>
+                <input 
+                    type="text" 
+                    name="unit"
+                    placeholder="e.g., grams, packs, ml"
+                    class="w-full px-4 py-2 bg-gray-100 rounded-lg"
+                    required
+                >
+            </div>
+
+            <!-- Category -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">Category</label>
+                <select 
+                    name="category" 
+                    class="w-full px-4 py-2 bg-gray-100 rounded-lg"
+                >
+                    <option>Other</option>
+                    <option>Dairy</option>
+                    <option>Dry Goods</option>
+                    <option>Flour</option>
+                    <option>Sugar</option>
+                    <option>Toppings</option>
+                </select>
+            </div>
+
+            <!-- Stock -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">Stock</label>
+                <input 
+                    type="number" 
+                    name="stock"
+                    value="0"
+                    class="w-full px-4 py-2 bg-gray-100 rounded-lg"
+                    required
+                >
+            </div>
+
+            <!-- Min Stock -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-1">Min Stock</label>
+                <input 
+                    type="number" 
+                    name="min_stock"
+                    value="0"
+                    class="w-full px-4 py-2 bg-gray-100 rounded-lg"
+                    required
+                >
+            </div>
+
+            <!-- Footer Buttons -->
+            <div class="flex justify-end space-x-3 mt-6">
+                <button 
+                    type="button"
+                    @click="showAddModal = false"
+                    class="px-4 py-2 rounded-lg border"
+                >
+                    Cancel
+                </button>
+
+                <button 
+                    type="submit"
+                    class="px-6 py-2 rounded-lg bg-pink-500 text-white font-semibold"
+                >
+                    Add
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 @endsection

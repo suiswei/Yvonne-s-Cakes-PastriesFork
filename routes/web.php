@@ -48,7 +48,13 @@ Route::prefix('admin')->group(function() {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/orders', [AdminOrdersController::class, 'index'])->name('admin.orders');
     Route::get('salesreport', [AdminSalesReportController::class, 'index'])->name('admin.salesreport');
+
     Route::get('/users', [AdminUsersController::class, 'index'])->name('admin.users');
+    Route::get('/users/{id}', [AdminUsersController::class, 'show'])->name('admin.users.show');
+    Route::post('/users/create-admin', [AdminUsersController::class, 'storeAdmin'])->name('admin.users.storeAdmin');
+
     Route::get('/paluwagan', [AdminPaluwaganController::class, 'index'])->name('admin.paluwagan');
+    
     Route::get('/inventory', [AdminInventoryController::class, 'index']) ->name('admin.inventory');
+    Route::post('/inventory/store', [InventoryController::class, 'store'])->name('inventory.store');
 });

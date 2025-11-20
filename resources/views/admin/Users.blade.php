@@ -3,7 +3,14 @@
 @section('title', 'User Management')
 
 @section('content')
-<div x-data="{ showDetails:false, showAdd:false }" class="px-10 py-6">
+<div 
+    x-data="{ 
+        showDetails:false, 
+        showAdd:false,
+        user: {}   // store user details here
+    }" 
+    class="px-10 py-6"
+>
 
     {{-- Header --}}
     <div class="flex justify-between items-center">
@@ -46,7 +53,7 @@
         </div>
 
         <button 
-            @click="showDetails = true"
+        @click="showDetails = true"
             class="px-4 py-2 border border-gray-400 rounded-lg hover:bg-gray-100">
             View Details
         </button>
@@ -70,45 +77,46 @@
             </button>
 
             <h2 class="text-2xl font-semibold mb-1">User Details</h2>
-            <p class="text-gray-500 mb-6">Complete information about jas</p>
+            <p class="text-gray-500 mb-6">Complete information about <span x-text="user.name"></span></p>
 
             <div class="grid grid-cols-2 gap-4">
 
                 <div>
                     <p class="font-semibold">User ID</p>
-                    <p class="text-gray-700">10110022100</p>
+                    <p x-text="user.id" class="text-gray-700"></p>
                 </div>
 
                 <div>
                     <p class="font-semibold">Username</p>
-                    <p class="text-gray-700">@dsd</p>
+                    <p x-text="user.username" class="text-gray-700"></p>
                 </div>
 
                 <div>
                     <p class="font-semibold">Full Name</p>
-                    <p class="text-gray-700">jas</p>
+                    <p x-text="user.name ?? (user.first_name + ' ' + user.last_name)" class="text-gray-700"></p>
                 </div>
 
                 <div>
                     <p class="font-semibold">Email</p>
-                    <p class="text-gray-700">jasjas@gmail.com</p>
+                    <p x-text="user.email" class="text-gray-700"></p>
                 </div>
 
                 <div>
                     <p class="font-semibold">Contact</p>
-                    <p class="text-gray-700">1212121212</p>
+                    <p x-text="user.contact ?? 'N/A'" class="text-gray-700"></p>
                 </div>
 
                 <div>
                     <p class="font-semibold">Status</p>
-                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">
-                        Active
+                    <span 
+                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm"
+                        x-text="user.status ?? 'Active'">
                     </span>
                 </div>
 
                 <div class="col-span-2">
                     <p class="font-semibold">Address</p>
-                    <p class="text-gray-700">street</p>
+                    <p x-text="user.address ?? 'No address provided'" class="text-gray-700"></p>
                 </div>
             </div>
         </div>
@@ -134,38 +142,37 @@
             <h2 class="text-2xl font-semibold">Add Admin</h2>
             <p class="text-gray-500 mb-6">Please fill in input fields</p>
 
-            <form action="#" method="POST" class="grid grid-cols-2 gap-4">
-
+            <form action="{{ route('admin.users.storeAdmin') }}" method="POST" class="grid grid-cols-2 gap-4">
                 @csrf
 
                 <div>
                     <label class="font-medium">Last Name</label>
-                    <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="Enter your lastname">
+                    <input name="last_name" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                 </div>
 
                 <div>
                     <label class="font-medium">First Name</label>
-                    <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="Enter your firstname">
+                    <input name="first_name" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                 </div>
 
                 <div>
                     <label class="font-medium">Middle Name</label>
-                    <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="Enter your middle initial">
+                    <input name="middle_name" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                 </div>
 
                 <div>
                     <label class="font-medium">Username</label>
-                    <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="Enter desired username">
+                    <input name="username" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                 </div>
 
                 <div class="col-span-2">
                     <label class="font-medium">Email Address</label>
-                    <input type="email" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="jasmemes00@gmail.com">
+                    <input name="email" type="email" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                 </div>
 
                 <div class="col-span-2">
                     <label class="font-medium">Select Role</label>
-                    <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                    <select name="role" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                         <option>Admin</option>
                         <option>Super Admin</option>
                     </select>
@@ -173,12 +180,12 @@
 
                 <div>
                     <label class="font-medium">Password</label>
-                    <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="Enter password">
+                    <input name="password" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                 </div>
 
                 <div>
                     <label class="font-medium">Confirm Password</label>
-                    <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="Confirm password">
+                    <input name="password_confirmation" type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2">
                 </div>
 
                 <div class="col-span-2 flex justify-end gap-2 mt-4">
@@ -202,4 +209,5 @@
     </div>
 
 </div>
+
 @endsection
