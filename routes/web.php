@@ -46,9 +46,9 @@ Route::get('/paluwagan', [PaluwaganPageController::class, 'index'])->name('paluw
 // ------------------- ADMIN PAGES -------------------
 Route::prefix('admin')->group(function() {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::resource('aorders', AdminOrdersController::class);
+    Route::get('/orders', [AdminOrdersController::class, 'index'])->name('admin.orders');
     Route::get('salesreport', [AdminSalesReportController::class, 'index'])->name('admin.salesreport');
-    Route::resource('users', AdminUsersController::class);
-    Route::resource('paluwagan', AdminPaluwaganController::class);
-    Route::resource('inventory', AdminInventoryController::class);
+    Route::get('/users', [AdminUsersController::class, 'index'])->name('admin.users');
+    Route::get('/paluwagan', [AdminPaluwaganController::class, 'index'])->name('admin.paluwagan');
+    Route::get('/inventory', [AdminInventoryController::class, 'index']) ->name('admin.inventory');
 });

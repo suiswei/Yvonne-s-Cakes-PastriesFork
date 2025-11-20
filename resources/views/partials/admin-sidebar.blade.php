@@ -12,19 +12,19 @@
         <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
           <span>📊</span><span>Dashboard</span>
         </a>
-        <a href="#" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
+        <a href="{{ route('admin.orders') }}" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
           <span>🛒</span><span>Orders</span>
         </a>
         <a href="{{ route('admin.salesreport') }}" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
           <span>📄</span><span>Reports</span>
         </a>
-        <a href="#" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
+        <a href="{{ route('admin.users') }}" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
           <span>👥</span><span>Users</span>
         </a>
-        <a href="#" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
+        <a href="{{ route('admin.paluwagan') }}" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
           <span>💰</span><span>Paluwagan</span>
         </a>
-        <a href="#" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
+        <a href="{{ route('admin.inventory') }}" class="flex items-center space-x-3 text-gray-700 hover:text-pink-500">
           <span>📦</span><span>Inventory</span>
         </a>
       </nav>
